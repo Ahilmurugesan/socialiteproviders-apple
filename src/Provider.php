@@ -58,7 +58,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function getCodeFields($state = null)
     {
         $fields = [
-            'client_id' => trim(explode(',', $this->clientId)[0]),
+            'client_id' => $this->clientId,
             'redirect_uri' => $this->redirectUrl,
             'scope' => $this->formatScopes($this->getScopes(), $this->scopeSeparator),
             'response_type' => 'code',
@@ -124,9 +124,9 @@ class Provider extends AbstractProvider implements ProviderInterface
         if ($token->getClaim('iss') !== self::URL) {
             throw new InvalidStateException("Invalid Issuer", Response::HTTP_UNAUTHORIZED);
         }
-        if (!in_array($token->getClaim('aud'), array_map('trim', explode(',', config('services.apple.client_id'))))) {
+        /*if ($token->getClaim('aud') !== config('services.apple.client_id')) {
             throw new InvalidStateException("Invalid Client ID", Response::HTTP_UNAUTHORIZED);
-        }
+        }*/
         if ($token->isExpired()) {
             throw new InvalidStateException("Token Expired", Response::HTTP_UNAUTHORIZED);
         }
