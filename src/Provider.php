@@ -11,7 +11,6 @@ use Laravel\Socialite\Two\InvalidStateException;
 use Firebase\JWT\JWK;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
-use Ahilan\Apple\Exceptions\InvalidTokenException;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
@@ -123,13 +122,13 @@ class Provider extends AbstractProvider implements ProviderInterface
         $token = (new Parser())->parse((string) $jwt);
 
         if ($token->getClaim('iss') !== self::URL) {
-            throw new InvalidTokenException("Invalid Issuer", Response::HTTP_UNAUTHORIZED);
+            throw new InvalidStateException("Invalid Issuer", Response::HTTP_UNAUTHORIZED);
         }
         if ($token->getClaim('aud') !== config('services.apple.client_id')) {
-            throw new InvalidTokenException("Invalid Client ID", Response::HTTP_UNAUTHORIZED);
+            throw new InvalidStateException("Invalid Client ID", Response::HTTP_UNAUTHORIZED);
         }
         if ($token->isExpired()) {
-            throw new InvalidTokenException("Token Expired", Response::HTTP_UNAUTHORIZED);
+            throw new InvalidStateException("Token Expired", Response::HTTP_UNAUTHORIZED);
         }
 
         $data = json_decode(file_get_contents(self::URL.'/auth/keys'), true);
@@ -145,7 +144,7 @@ class Provider extends AbstractProvider implements ProviderInterface
             }
         }
         if (!$signature_verified) {
-            throw new InvalidTokenException("Invalid JWT Signature");
+            throw new InvalidStateException("Invalid JWT Signature");
         }
     }
 
