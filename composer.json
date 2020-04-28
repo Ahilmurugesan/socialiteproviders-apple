@@ -1,0 +1,25 @@
+{
+    "name": "ahilmurugesan/socialiteproviders-apple",
+    "description": "Apple OAuth2 Provider for Laravel Socialite",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahilan",
+            "email": "ahilmurugesan@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^5.2",
+        "lcobucci/jwt": "^3.3",
+        "socialiteproviders/manager": "^2.0|^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SocialiteProviders\\Apple\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "suggest": {
+        "ahilmurugesan/socialite-apple-helper": "Automatic Apple client key generation and management."
+    }
+}
