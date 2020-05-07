@@ -1,5 +1,5 @@
-<h1 align="center">Notice</h1>
-<p align="center">
+<h1>Notice</h1>
+<p>
 We are Happy to announce that SocialiteProvider - Apple package is officialy approved and added to Laravel Socialite. You can find them here 
 <a href="https://packagist.org/packages/socialiteproviders/apple">https://packagist.org/packages/socialiteproviders/apple</a>
 </p>
